@@ -55,7 +55,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          # tags: ${{ steps.meta.outputs.tags }}
+          tags:
+            user/app:latest
           labels: ${{ steps.meta.outputs.labels }}
       
       - name: Generate artifact attestation
