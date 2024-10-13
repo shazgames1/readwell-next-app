@@ -9,14 +9,20 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  # load-balancer:
+  #   image: traefik
   app:
     # todo: replace with env variables?
     image: "ghcr.io/shazgames1/readwell-next-app:latest"
     depends_on:
       - db
     ports:
-      - "80:80"
-      - "443:443"
+      # We don't need 80 and 443 ports. Use load balancer instead
+      # - "80:80"
+      # - "443:443"
+
+      # TODO: replace 80 port when load balancer will be set up
+      - "80:3000"
     environment:
       - NODE_ENV=production
 volumes:
