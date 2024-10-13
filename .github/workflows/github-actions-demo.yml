@@ -55,11 +55,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
           flavor: |
             latest=true
-      
 
-      - name: Print tags
-        run: 'echo "Tags: ${{ steps.meta.outputs.tags }}"'
-      
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6
