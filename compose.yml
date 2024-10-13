@@ -9,5 +9,15 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  app:
+    # todo: replace with env variables?
+    image: ghcr.io:shazgames1/readwell-next-app:latest
+    depends_on:
+      - db
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - NODE_ENV=production
 volumes:
   postgres_data:
