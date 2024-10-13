@@ -27,4 +27,4 @@ USER node
 # CMD [ "npm", "start"]
 # LABEL org.opencontainers.image.source="https://github.com/shazgames1/readwell-next-app"
 
-CMD ["HOSTNAME='0.0.0.0'", "node", "server.js"]
+CMD ["node", "server.js"]
