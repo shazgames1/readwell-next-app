@@ -60,7 +60,7 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./docker/production/
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -80,6 +80,10 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            cd readwell-next-app
+            git pull
+            npx --yes drizzle-kit migrate
+            cd ./docker/production
             docker compose down
             docker compose pull
             docker compose up -d

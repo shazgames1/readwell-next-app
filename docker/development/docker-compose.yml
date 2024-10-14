@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    env_file:
+      - ../../.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  # load-balancer:
+  #   image: traefik
+  app:
+    container_name: readwell-next-app-dev
+    build:
+      # Move to app directory level
+      context: ../..
+      target: dev
+      dockerfile: docker/development/Dockerfile
+    command: >
+      sh -c "npm i -D drizzle-kit &&
+             npm run db:migrate &&
+             npm run dev"
+    # command: printenv
+    depends_on:
+      - db
+    ports:
+      # TODO: replace 3000 port when load balancer will be set up
+      - "3000:3000"
+    env_file:
+      # Move to app directory level
+      - ../../.env
+    volumes:
+      # Sync container changes with app's root local folder
+      - ../../:/app
+      - ../../node_modules:/app/node_modules
+      - ../../node_modules/.next:/app/.next
+volumes:
+  pgdata:

@@ -6,21 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "npx drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
+    "@ngneat/falso": "^7.2.0",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.34.1",
+    "next": "14.2.15",
+    "pg": "^8.13.0",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.15"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
+    "@types/pg": "^8.11.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "drizzle-kit": "^0.25.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.15"
+    "typescript": "^5"
   }
 }
