@@ -25,7 +25,7 @@ export default async function Home() {
         <h1>Users:</h1>
         <ul>
           {users.map((u) => (
-            <li>
+            <li key={u.id}>
               {u.name} ({u.id}) {u.email}
             </li>
           ))}
