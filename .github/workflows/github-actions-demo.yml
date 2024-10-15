@@ -81,10 +81,9 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd readwell-next-app
+            cd ${{ secrets.APP_DIR }}
             git pull
-            npx --yes drizzle-kit migrate
             cd ./docker/production
-            docker compose down
-            docker compose pull
-            docker compose up -d
+            docker-compose pull
+            docker-compose up -d
+            docker-compose exec app npm run db:migrate

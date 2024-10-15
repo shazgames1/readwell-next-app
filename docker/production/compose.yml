@@ -1,12 +1,11 @@
 services:
   db:
     image: postgres
-    environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
     ports:
       - "5432:5432"
+    env_file:
+      # Move to app directory level
+      - ../../.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
   # load-balancer:
@@ -16,6 +15,9 @@ services:
     image: "ghcr.io/shazgames1/readwell-next-app:latest"
     depends_on:
       - db
+    env_file:
+      # Move to app directory level
+      - ../../.env
     ports:
       # We don't need 80 and 443 ports. Use load balancer instead
       # - "80:80"
@@ -23,7 +25,5 @@ services:
 
       # TODO: replace 80 port when load balancer will be set up
       - "80:3000"
-    environment:
-      - NODE_ENV=production
 volumes:
   postgres_data:
