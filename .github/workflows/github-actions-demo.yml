@@ -84,6 +84,6 @@ jobs:
             cd ${{ secrets.APP_DIR }}
             git pull
             cd ./docker/production
-            docker-compose pull
-            docker-compose up -d
-            docker-compose exec app npm run db:migrate
+            docker compose pull
+            docker compose up -d
+            docker compose exec app npm run db:migrate
