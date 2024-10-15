@@ -81,11 +81,14 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            exec bash \-l
             cd ${{ secrets.APP_DIR }}
-            git pull
-            cd ./docker/production
-            docker compose pull
-            docker compose down
-            npm i -D drizzle-kit
-            npm run db:migrate
-            docker compose up -d
+            ./deploy.sh
+            # sh ./my-script.sh
+            # git pull
+            # cd ./docker/production
+            # docker compose pull
+            # docker compose down
+            # npm i -D drizzle-kit
+            # npm run db:migrate
+            # docker compose up -d
