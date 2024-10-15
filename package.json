@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "npx drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "npx drizzle-kit migrate"
   },
   "dependencies": {
     "@ngneat/falso": "^7.2.0",
