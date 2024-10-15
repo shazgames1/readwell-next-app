@@ -81,7 +81,8 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            exec bash \-l
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             cd ${{ secrets.APP_DIR }}
             git pull
             cd ./docker/production
