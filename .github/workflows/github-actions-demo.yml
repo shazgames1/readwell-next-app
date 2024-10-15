@@ -83,7 +83,14 @@ jobs:
           script: |
             exec bash \-l
             cd ${{ secrets.APP_DIR }}
-            ./deploy.sh
+            git pull
+            cd ./docker/production
+            docker compose pull
+            docker compose down
+            npm i -D drizzle-kit
+            npm run db:migrate
+            docker compose up -d
+            # ./deploy.sh
             # sh ./my-script.sh
             # git pull
             # cd ./docker/production
