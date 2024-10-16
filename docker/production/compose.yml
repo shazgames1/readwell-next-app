@@ -33,12 +33,16 @@ services:
       - "--log.filePath=/var/log/traefik/traefik.log"
     labels:
       traefik.enable: "true"
+      # Setup traefik dashboard
       traefik.http.routers.mydashboard.rule: "Host(`traefik.read-well.ru`)"
       traefik.http.routers.mydashboard.entrypoints: "websecure"
       traefik.http.routers.mydashboard.tls.certresolver: "myresolver"
       traefik.http.routers.mydashboard.service: "api@internal"
       traefik.http.routers.mydashboard.middlewares: "myauth"
       traefik.http.middlewares.myauth.basicauth.users: "admin:{SHA}fZlA7E5ywpk+IAtzPGzKuR/Xgkg="
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/log/traefik:/var/log/traefik
