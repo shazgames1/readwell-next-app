@@ -87,18 +87,4 @@ jobs:
             git pull
             cd ./docker/production
             docker compose pull
-            # docker compose down
             docker compose up --build -d
-            # npm i -D drizzle-kit
-            # npm run db:migrate
-            # docker compose exec app npm i -D drizzle-kit
-            # docker compose exec app npm run db:migrate
-            # ./deploy.sh
-            # sh ./my-script.sh
-            # git pull
-            # cd ./docker/production
-            # docker compose pull
-            # docker compose down
-            # npm i -D drizzle-kit
-            # npm run db:migrate
-            # docker compose up -d

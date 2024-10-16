@@ -1,17 +1,21 @@
 import { db } from "@/db/drizzle"
 import { usersTable } from "@/db/schema"
 import { revalidatePath } from "next/cache"
-import Image from "next/image"
-import { randEmail, randUserName, randNumber, randCountry, randCountryCode } from "@ngneat/falso"
+import {
+  randEmail,
+  randUserName,
+  randNumber,
+  randCountryCode,
+} from "@ngneat/falso"
+import { ConfettiButton } from "@/components/ui/confetti"
 
 const getFlagEmoji = (countryCode: string) => {
   const codePoints = countryCode
-      .toUpperCase()
-      .split('')
-      .map((char) => 127397 + char.charCodeAt(0))
+    .toUpperCase()
+    .split("")
+    .map((char) => 127397 + char.charCodeAt(0))
   return String.fromCodePoint(...codePoints)
 }
-
 
 export default async function Home() {
   const users = await db.select().from(usersTable)
@@ -23,7 +27,7 @@ export default async function Home() {
       age: randNumber({ min: 16, max: 40 }),
       email: randEmail(),
       name: randUserName(),
-      countryCode: randCountryCode()
+      countryCode: randCountryCode(),
     } as typeof usersTable.$inferInsert)
 
     revalidatePath("/")
@@ -41,7 +45,9 @@ export default async function Home() {
           ))}
         </ul>
         <form action={generateUser}>
-          <button className="outline outline-1 p-3 rounded-lg">Add new random user</button>
+          <ConfettiButton className="outline outline-1 p-3 rounded-lg">
+            Add new random user
+          </ConfettiButton>
         </form>
       </main>
     </div>

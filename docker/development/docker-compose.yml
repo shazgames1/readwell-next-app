@@ -25,12 +25,7 @@ services:
     depends_on:
       migrations-runner:
         condition: service_completed_successfully
-    # command: >
-    #   sh -c "npm i -D drizzle-kit &&
-    #          npm run db:migrate &&
-    #          npm run dev"
     command: npm run dev
-    # command: printenv
     ports:
       # TODO: replace 3000 port when load balancer will be set up
       - "3000:3000"
