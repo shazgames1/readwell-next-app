@@ -81,11 +81,26 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # export NVM_DIR=~/.nvm
-            # source ~/.nvm/nvm.sh
             cd ${{ secrets.APP_DIR }}
             git pull
             cd ./docker/production
             docker compose pull
             docker compose up --build -d
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Deployment status
+        if: always()
+        run: |
+          if [ ${{ job.status }} == "success" ]; then
+            echo "DEPLOY_STATUS=✅ Deployment successful" >> $GITHUB_ENV
+          else
+            echo "DEPLOY_STATUS=❌ Deployment failed" >> $GITHUB_ENV
+          fi
+      - name: Send Telegram notification - Deployment Status
+        if: always()
+        uses: appleboy/telegram-action@v0.1.1
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message: |
+            ${{ env.DEPLOY_STATUS }} for ${{ github.repository }}
+            Commit: ${{ github.sha }}
+            See details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

@@ -64,13 +64,6 @@ services:
     env_file:
       # Move to app directory level
       - ../../.env
-    # ports:
-      # We don't need 80 and 443 ports. Use load balancer instead
-      # - "80:80"
-      # - "443:443"
-
-      # TODO: replace 80 port when load balancer will be set up
-      # - "80:3000"
     labels:
       traefik.enable: "true"
       traefik.http.routers.nextjs.rule: "Host(`read-well.ru`)"
