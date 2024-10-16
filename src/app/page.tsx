@@ -40,7 +40,7 @@ export default async function Home() {
         <ul>
           {users.map((u) => (
             <li key={u.id}>
-              {u.name} ({u.id}) {u.email} from {getFlagEmoji(u.countryCode)}
+              {u.name} from {getFlagEmoji(u.countryCode)}
             </li>
           ))}
         </ul>
