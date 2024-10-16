@@ -2,7 +2,16 @@ import { db } from "@/db/drizzle"
 import { usersTable } from "@/db/schema"
 import { revalidatePath } from "next/cache"
 import Image from "next/image"
-import { randEmail, randUserName, randNumber, randCountry } from "@ngneat/falso"
+import { randEmail, randUserName, randNumber, randCountry, randCountryCode } from "@ngneat/falso"
+
+const getFlagEmoji = (countryCode: string) => {
+  const codePoints = countryCode
+      .toUpperCase()
+      .split('')
+      .map((char) => 127397 + char.charCodeAt(0))
+  return String.fromCodePoint(...codePoints)
+}
+
 
 export default async function Home() {
   const users = await db.select().from(usersTable)
@@ -14,7 +23,7 @@ export default async function Home() {
       age: randNumber({ min: 16, max: 40 }),
       email: randEmail(),
       name: randUserName(),
-      country: randCountry()
+      countryCode: randCountryCode()
     } as typeof usersTable.$inferInsert)
 
     revalidatePath("/")
@@ -27,7 +36,7 @@ export default async function Home() {
         <ul>
           {users.map((u) => (
             <li key={u.id}>
-              {u.name} ({u.id}) {u.email} from {u.country}
+              {u.name} ({u.id}) {u.email} from {getFlagEmoji(u.countryCode)}
             </li>
           ))}
         </ul>
