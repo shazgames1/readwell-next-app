@@ -41,7 +41,7 @@ export default async function Home() {
           ))}
         </ul>
         <form action={generateUser}>
-          <button>Add new random user</button>
+          <button className="outline outline-1 p-3 rounded-lg">Add new random user</button>
         </form>
       </main>
     </div>
