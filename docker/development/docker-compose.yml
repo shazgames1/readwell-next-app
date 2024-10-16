@@ -7,14 +7,14 @@ services:
       - ../../.env
     volumes:
       - pgdata:/var/lib/postgresql/data
-  # load-balancer:
-  #   image: traefik
+  
   migrations-runner:
     build:
       context: ../..
       dockerfile: docker/migrations-runner/Dockerfile
     env_file:
       - ../../.env
+  
   app:
     container_name: readwell-next-app-dev
     build:
@@ -27,7 +27,6 @@ services:
         condition: service_completed_successfully
     command: npm run dev
     ports:
-      # TODO: replace 3000 port when load balancer will be set up
       - "3000:3000"
     env_file:
       # Move to app directory level

@@ -23,38 +23,3 @@ FROM base AS dev
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-
-# 2. Rebuild the source code only when needed
-# FROM base AS builder
-
-# # Setup working directory in container
-# WORKDIR /app
-
-# COPY --from=deps /app/node_modules ./node_modules
-# COPY . .
-# RUN npm run build
-
-
-# 3. Development image, copy all the files and run next
-# FROM base AS runner
-
-# WORKDIR /app
-# ENV NODE_ENV=development
-# ENV HOSTNAME=0.0.0.0
-
-# # From nextjs example: https://github.com/vercel/next.js/blob/canary/examples/with-docker-multi-env/docker/production/Dockerfile
-# RUN addgroup -g 1001 -S nodejs
-# RUN adduser -S nextjs -u 1001
-
-# COPY --from=builder /app/public ./public
-
-# # From nextjs example: https://github.com/vercel/next.js/blob/canary/examples/with-docker-multi-env/docker/production/Dockerfile
-# # Copy files from the builder stage to the current directory in the final image
-# # and change the ownership of the files to the nextjs user and nodejs group.
-# COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-# COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# USER nextjs
-# EXPOSE 3000
-# CMD ["node", "server.js"]
