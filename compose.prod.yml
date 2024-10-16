@@ -5,10 +5,14 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      # Move to app directory level
-      - ../../.env
+      - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   
   load-balancer:
     image: traefik
@@ -52,10 +56,10 @@ services:
     
   migrations-runner:
     build:
-      context: ../..
-      dockerfile: docker/migrations-runner/Dockerfile
+      context: .
+      target: migration-runner
     env_file:
-      - ../../.env
+      - .env
   
   app:
     # todo: replace with env variables?
@@ -64,8 +68,7 @@ services:
       migrations-runner:
         condition: service_completed_successfully
     env_file:
-      # Move to app directory level
-      - ../../.env
+      - .env
     labels:
       traefik.enable: "true"
       traefik.http.routers.nextjs.rule: "Host(`read-well.ru`)"
