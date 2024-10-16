@@ -80,7 +80,7 @@ jobs:
             cd ${{ secrets.APP_DIR }}
             git pull
             docker compose pull
-            docker compose up --build -d
+            docker compose -f compose.prod.yml up --build -d
       
       - name: Deployment status
         if: always()
