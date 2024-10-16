@@ -76,7 +76,7 @@ services:
       traefik.http.routers.nextjs.rule: "Host(`read-well.ru`)"
       traefik.http.routers.nextjs.entrypoints: "websecure"
       traefik.http.routers.nextjs.tls.certresolver: "myresolver"
-      traefik.http.services.nextjs.loadbalancer.server.port: 80
+      traefik.http.services.nextjs.loadbalancer.server.port: 3000
 volumes:
   postgres_data:
 

@@ -88,3 +88,4 @@ jobs:
             cd ./docker/production
             docker compose pull
             docker compose up --build -d
+      - run: echo "🍏 This job's status is ${{ job.status }}."
