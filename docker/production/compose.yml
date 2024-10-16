@@ -10,11 +10,18 @@ services:
       - postgres_data:/var/lib/postgresql/data
   # load-balancer:
   #   image: traefik
+  migrations-runner:
+    build:
+      context: ../..
+      dockerfile: docker/migrations-runner/Dockerfile
+    env_file:
+      - ../../.env
   app:
     # todo: replace with env variables?
     image: "ghcr.io/shazgames1/readwell-next-app:latest"
     depends_on:
-      - db
+      migrations-runner:
+        condition: service_completed_successfully
     env_file:
       # Move to app directory level
       - ../../.env
