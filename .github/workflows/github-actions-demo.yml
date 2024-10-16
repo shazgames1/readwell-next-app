@@ -73,8 +73,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=registry,ref=user/app:latest
+          cache-to: type=inline,mode=min
 
   deploy:
     runs-on: ubuntu-latest
