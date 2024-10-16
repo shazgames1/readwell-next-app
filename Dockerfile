@@ -25,7 +25,18 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 
-# 3. Production image, copy all the files and run next
+# 3. Rebuild the source code only when needed
+FROM base AS builder
+
+# Setup working directory in container
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npm run build
+
+
+# 4. Production image, copy all the files and run next
 FROM base AS production
 WORKDIR /app
 ENV NODE_ENV=production
@@ -48,7 +59,7 @@ EXPOSE 3000
 CMD ["node", "server.js"]
 
 
-# 4. Migrations runner
+# 5. Migrations runner
 FROM base AS migration-runner
 
 WORKDIR /app
