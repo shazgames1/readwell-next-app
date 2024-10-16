@@ -1,5 +1,5 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Build and Deploy
+
 on:
   push:
     branches:
@@ -35,7 +35,7 @@ jobs:
       # - run: npm run build
       # - run: npm run deploy
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
