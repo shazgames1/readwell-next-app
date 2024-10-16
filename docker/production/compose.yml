@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres
+    # TODO: remove
     ports:
       - "5432:5432"
     env_file:
@@ -72,7 +73,7 @@ services:
       # - "80:3000"
     labels:
       traefik.enable: "true"
-      traefik.http.routers.nextjs.rule: "Host(`traefik.read-well.ru`)"
+      traefik.http.routers.nextjs.rule: "Host(`read-well.ru`)"
       traefik.http.routers.nextjs.entrypoints: "websecure"
       traefik.http.routers.nextjs.tls.certresolver: "myresolver"
       traefik.http.services.nextjs.loadbalancer.server.port: 80
