@@ -12,34 +12,5 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  
-  migrations-runner:
-    build:
-      context: .
-      target: migration-runner
-    depends_on:
-      db:
-        condition: service_healthy
-    env_file:
-      - .env
-  
-  app:
-    container_name: readwell-next-app-dev
-    build:
-      context: .
-      target: development
-    depends_on:
-      migrations-runner:
-        condition: service_completed_successfully
-    command: npm run dev
-    ports:
-      - "3000:3000"
-    env_file:
-      - .env
-    volumes:
-      # Sync container changes and app folder
-      - .:/app
-      - ./node_modules:/app/node_modules
-      - ./node_modules/.next:/app/.next
 volumes:
   pgdata:
